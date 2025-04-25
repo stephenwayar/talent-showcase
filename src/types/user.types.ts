@@ -1,8 +1,8 @@
 export interface IUser {
-  accessToken: string;
   email: string;
   fullName: string;
   location: string;
-  bio: string;
-  profilePhoto: string
+  bio: string | null;
+  accessToken: string;
+  profilePhoto: string | null
 }
