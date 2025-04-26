@@ -22,7 +22,9 @@ export default function RegistrationForm({
     <form onSubmit={form.onSubmit((values) => handleRegister(values))} className='px-4 sm:px-8 py-14 sm:py-20'>
       <div className='mx-auto max-w-[37rem]'>
         <div className='mx-auto w-fit lg:hidden'>
-          <Logo />
+          <Link to='/'>
+            <Logo />
+          </Link>
         </div>
 
         <div className='px-4 sm:px-6 py-8 bg-white shadow-sm rounded-[10px] mt-5 lg:mt-0'>

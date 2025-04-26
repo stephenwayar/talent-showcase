@@ -27,13 +27,22 @@ export default function ProfileDetailsForm({
   const [uploading, setUploading] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
+  // Cleanup preview URL when component unmounts
+  useEffect(() => {
+    return () => {
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
+    };
+  }, [previewUrl]);
+
   const handlePhotoClick = () => {
     fileInputRef.current?.click();
   };
 
   const handleProfilePhotoChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (!file || !user!.id) return;
+    if (!file || !user?.id) return;
 
     try {
       // Create preview first
@@ -44,7 +53,7 @@ export default function ProfileDetailsForm({
       setUploading(true);
 
       // Call separate service to handle both upload and profile update
-      const { imageUrl } = await updateProfilePicture(file, user!.id);
+      const { imageUrl } = await updateProfilePicture(file, user?.id);
 
       // Update the user state with the new profile image
       const updatedUser: IUser = {
@@ -57,22 +66,12 @@ export default function ProfileDetailsForm({
       setCookieItem('session-user', updatedUser);
 
       toast.success('Profile photo updated');
-    } catch (error) {
-      console.error('Error updating profile photo:', error);
+    } catch (_error) {
       toast.error('Failed to update profile photo');
     } finally {
       setUploading(false);
     }
   };
-
-  // Cleanup preview URL when component unmounts
-  useEffect(() => {
-    return () => {
-      if (previewUrl) {
-        URL.revokeObjectURL(previewUrl);
-      }
-    };
-  }, [previewUrl]);
 
   return (
     <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
@@ -80,7 +79,7 @@ export default function ProfileDetailsForm({
         <div className="relative mx-auto w-[135px] h-[135px] lg:h-[200px] lg:w-[200px]">
           <div
             onClick={handlePhotoClick}
-            className="w-full h-full rounded-full hover:brightness-50 transition duration-75 ease-in border overflow-hidden cursor-pointer"
+            className="w-full h-full rounded-full hover:brightness-50 transition duration-75 ease-in overflow-hidden cursor-pointer"
           >
             {previewUrl ? (
               <img

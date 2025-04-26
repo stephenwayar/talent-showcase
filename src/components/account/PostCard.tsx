@@ -33,12 +33,12 @@ export default function PostCard({ data, showPosterLink = true }: Props) {
         </div>
 
         <img
-          src={data.image_url || defaultImage}
           alt={data.title}
-          className={`w-full h-full object-cover object-center transition duration-[200ms] delay-75 hover:brightness-50 hover:scale-125 ${imageLoaded && !imageError ? 'block' : 'hidden'
-            }`}
           onLoad={handleImageLoad}
           onError={handleImageError}
+          src={data.image_url || defaultImage}
+          className={`w-full h-full object-cover object-center transition duration-[200ms] delay-75 hover:brightness-50 hover:scale-125 ${imageLoaded && !imageError ? 'block' : 'hidden'
+            }`}
         />
       </div>
 
@@ -54,6 +54,7 @@ export default function PostCard({ data, showPosterLink = true }: Props) {
         <div className="flex items-center mt-1">
           <span className="text-[#cc903c] text-xs bg-[#cc903c]/10 px-2 py-1 rounded-full flex items-center">
             <span className="mr-1">#</span>
+            
             {data.category.toLowerCase().replace(/\s+/g, '-')}
           </span>
         </div>

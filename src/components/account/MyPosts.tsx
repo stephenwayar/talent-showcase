@@ -11,8 +11,9 @@ const MyPosts = () => {
   const { user } = useAppState()
 
   const { isPending, isError, data, refetch } = useQuery({
-    queryKey: ['posts', user!.id],
+    queryKey: ['posts', user?.id],
     queryFn: () => getPostsByUserId(user!.id),
+    enabled: !!user?.id
   })
 
   return (

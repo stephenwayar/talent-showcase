@@ -48,6 +48,7 @@ export default function LoginPage() {
       setCookieItem('session-user', data);
       form.reset();
 
+      // Handle redirect params
       const params = new URLSearchParams(window.location.search);
 
       if (params.has("redirect")) {

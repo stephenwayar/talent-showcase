@@ -59,8 +59,8 @@ export default function NewPostForm({
           <div className="flex flex-col mb-6">
             <div
               onClick={() => fileInputRef.current?.click()}
-              className={`w-32 h-32 rounded-full flex items-center justify-center cursor-pointer overflow-hidden ${previewUrl ? '' : 'bg-gray-200 hover:bg-gray-300'}`}
               style={{ border: form.errors.image ? '2px solid #EF4444' : '2px dashed #D0D5DD' }}
+              className={`w-32 h-32 rounded-full flex items-center justify-center cursor-pointer overflow-hidden ${previewUrl ? '' : 'bg-gray-200 hover:bg-gray-300'}`}
             >
               {previewUrl ? (
                 <img
