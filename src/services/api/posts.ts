@@ -16,6 +16,19 @@ export const getMyPosts = async (userId: string) => {
   return data || [];
 };
 
+export const getPosts = async () => {
+  const { data, error } = await supabase
+    .from('posts')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    throw error;
+  }
+
+  return data || [];
+};
+
 export const createPost = async (payload: CreatePostPayload, userId: string) => {
   // Step 1: Upload the image
   const imageUrl = await uploadImage(payload.image, userId, 'post-images');

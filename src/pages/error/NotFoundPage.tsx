@@ -32,7 +32,7 @@ export default function NotFoundPage() {
 
           <div className="text-center">
             <Link to="/">
-              <button className="bg-[#cc903c] dark:bg-[#333333] hover:bg-[#cc903cdf] text-white h-[45px] rounded-lg text-center w-36">
+              <button className="bg-[#cc903c] hover:bg-[#cc903cdf] text-white h-[45px] rounded-lg text-center w-36">
                 Go home
               </button>
             </Link>
