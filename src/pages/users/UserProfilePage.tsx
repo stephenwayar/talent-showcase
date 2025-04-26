@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useLayoutEffect } from "react";
 import Nav from "@/components/nav/Nav";
-import PostCard from "@/components/posts/PostCard";
+import PostCard from "@/components/account/PostCard";
 import LoadingState from "@/components/common/LoadingState";
 import EmptyState from "@/components/common/EmptyState";
 import RetryButton from "@/components/common/RetryButton";
@@ -87,10 +87,10 @@ export default function UserProfilePage() {
                 {data.userPosts && data.userPosts.length > 0 ? (
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     {data.userPosts.map(post => (
-                      <PostCard 
-                        showPosterLink={false} 
-                        key={post.id} 
-                        data={post} 
+                      <PostCard
+                        showPosterLink={false}
+                        key={post.id}
+                        data={post}
                       />
                     ))}
                   </div>

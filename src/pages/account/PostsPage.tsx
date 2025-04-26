@@ -1,5 +1,5 @@
-import MyPosts from "@/components/posts/MyPosts";
-import NewPostForm from "@/components/posts/NewPostForm";
+import MyPosts from "@/components/account/MyPosts";
+import NewPostForm from "@/components/account/NewPostForm";
 import { useAppState } from "@/hooks/useAppState";
 import { createPost } from "@/services/api/posts";
 import { useForm } from "@mantine/form";
