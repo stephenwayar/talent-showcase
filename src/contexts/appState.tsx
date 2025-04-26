@@ -1,4 +1,4 @@
-import { IUser } from '@/types/user.types';
+import { IUser } from '@/services/types/auth.types';
 import { createContext } from 'react';
 
 export type AppStateContextType = {

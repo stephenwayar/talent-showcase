@@ -10,7 +10,6 @@ import PostsPage from '@/pages/account/PostsPage';
 import NotFoundPage from '@/pages/error/NotFoundPage';
 import { createBrowserRouter } from 'react-router-dom';
 import UserProfilePage from '@/pages/users/UserProfilePage';
-import UsersDirectoryPage from '@/pages/users/UsersDirectoryPage';
 
 export const router = createBrowserRouter([
   // Public landing page
@@ -65,10 +64,6 @@ export const router = createBrowserRouter([
     path: '/users',
     element: <ProtectedRoute />,
     children: [
-      {
-        index: true,
-        element: <UsersDirectoryPage />, // A directory page for all users
-      },
       {
         path: ':username',
         element: <UserProfilePage />,

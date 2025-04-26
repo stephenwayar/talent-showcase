@@ -1,4 +1,4 @@
-import { IUser } from "@/types/user.types";
+import { IUser } from "@/services/types/auth.types";
 import { supabase } from "@/config/supabase";
 import { LoginPayload, RegistrationPayload } from "../types/auth.types";
 
@@ -26,6 +26,7 @@ export const login = async (payload: LoginPayload): Promise<IUser> => {
 
   // Step 3: Construct and return the user object
   const user: IUser = {
+    id: authData.user.id,
     bio: accountData.bio,
     fullName: accountData.fullName,
     location: accountData.location,

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { IUser } from '../types/user.types';
-import { AppStateContext } from '../contexts/appState';
+import { Toaster } from 'react-hot-toast';
 import { MantineProvider } from '@mantine/core';
+import { IUser } from '@/services/types/auth.types';
+import { AppStateContext } from '../contexts/appState';
 import { getCookieItem } from '@/helpers/functions/cookie';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Toaster } from 'react-hot-toast';
 
 interface Props { children: React.ReactNode }
 

@@ -5,8 +5,7 @@ import Logo from '@/components/common/Logo';
 import { UseMutationResult } from '@tanstack/react-query';
 import Input from '../custom/Input';
 import { Icon } from '@iconify/react';
-import { LoginPayload } from '@/services/types/auth.types';
-import { IUser } from '@/types/user.types';
+import { IUser, LoginPayload } from '@/services/types/auth.types';
 
 type Props = {
   handleSubmit: (values: InitialValuesType) => void;

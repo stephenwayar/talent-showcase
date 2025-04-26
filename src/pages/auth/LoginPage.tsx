@@ -1,13 +1,12 @@
 import { useForm } from '@mantine/form';
 import { useMutation } from "@tanstack/react-query";
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAppState } from '@/hooks/useAppState';
 import { login } from '@/services/api/auth';
-import { LoginPayload } from '@/services/types/auth.types';
+import { IUser, LoginPayload } from '@/services/types/auth.types';
 import LoginForm from '@/components/auth/LoginForm';
 import { useLayoutEffect } from "react"
 import { setCookieItem } from '@/helpers/functions/cookie';
-import { IUser } from '@/types/user.types';
 
 export interface InitialValuesType {
   email: string;
@@ -16,7 +15,6 @@ export interface InitialValuesType {
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const location = useLocation();
   const { setUser } = useAppState();
 
   useLayoutEffect(() => {
@@ -52,12 +50,25 @@ export default function LoginPage() {
       form.reset();
 
       // Handle redirect logic from query params
-      const params = new URLSearchParams(location.search);
-      const redirectUrl = params.get("redirect") || '/account';
+      const params = new URLSearchParams(window.location.search);
 
-      setTimeout(() => {
-        navigate(redirectUrl);
-      }, 1500);
+      if (params.has("redirect")) {
+        const redirectUrl = params.get("redirect");
+
+        if (redirectUrl) {
+          setTimeout(() => {
+            navigate(redirectUrl)
+          }, 1500);
+        } else {
+          setTimeout(() => {
+            navigate('/account');
+          }, 1500);
+        }
+      } else {
+        setTimeout(() => {
+          navigate('/account');
+        }, 1500);
+      }
     }
   });
 
