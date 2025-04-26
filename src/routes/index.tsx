@@ -1,5 +1,3 @@
-import AuthRoute from './auth';
-import ProtectedRoute from './protected';
 import AuthLayout from '@/layouts/AuthLayout';
 import LoginPage from '@/pages/auth/LoginPage';
 import LandingPage from '@/pages/home/LandingPage';
@@ -8,10 +6,36 @@ import AccountLayout from '@/layouts/AccountLayout';
 import AccountPage from '@/pages/account/AccountPage';
 import PostsPage from '@/pages/account/PostsPage';
 import NotFoundPage from '@/pages/error/NotFoundPage';
-import { createBrowserRouter } from 'react-router-dom';
+import { Navigate, Outlet, RouterProvider, createBrowserRouter, useLocation } from 'react-router-dom';
 import UserProfilePage from '@/pages/users/UserProfilePage';
+import { useAppState } from '@/hooks/useAppState';
 
-export const router = createBrowserRouter([
+// Route wrapper for unauthenticated users (to prevent accessing auth pages when logged in)
+const AuthRoute = () => {
+  const { user } = useAppState();
+
+  if (user) {
+    return <Navigate to='/' replace />;
+  }
+
+  return <Outlet />;
+};
+
+// Protected route wrapper for authenticated users
+const ProtectedRoute = () => {
+  const { user } = useAppState();
+  const location = useLocation();
+
+  if (!user) {
+    // Encode the pathname to handle special characters properly
+    const encodedPathname = encodeURIComponent(location.pathname);
+    return <Navigate to={`/auth/login?redirect=${encodedPathname}`} replace />;
+  }
+
+  return <Outlet />;
+};
+
+const router = createBrowserRouter([
   // Public landing page
   {
     path: '/',
@@ -77,3 +101,7 @@ export const router = createBrowserRouter([
     element: <NotFoundPage />,
   },
 ]);
+
+export default function AppRouter() {
+  return <RouterProvider router={router} />;
+}
