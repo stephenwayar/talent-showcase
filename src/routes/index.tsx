@@ -6,13 +6,13 @@ import AccountLayout from '@/layouts/AccountLayout';
 import AccountPage from '@/pages/account/AccountPage';
 import PostsPage from '@/pages/account/PostsPage';
 import NotFoundPage from '@/pages/error/NotFoundPage';
-import { Navigate, Outlet, RouterProvider, createBrowserRouter, useLocation } from 'react-router-dom';
 import UserProfilePage from '@/pages/users/UserProfilePage';
-import { useAppState } from '@/hooks/useAppState';
+import { getCookieItem } from '@/helpers/functions/cookie';
+import { Navigate, Outlet, RouterProvider, createBrowserRouter, useLocation } from 'react-router-dom';
 
 // Route wrapper for unauthenticated users (to prevent accessing auth pages when logged in)
 const AuthRoute = () => {
-  const { user } = useAppState();
+  const user = getCookieItem('session-user');
 
   if (user) {
     return <Navigate to='/' replace />;
@@ -23,8 +23,8 @@ const AuthRoute = () => {
 
 // Protected route wrapper for authenticated users
 const ProtectedRoute = () => {
-  const { user } = useAppState();
   const location = useLocation();
+  const user = getCookieItem('session-user');
 
   if (!user) {
     // Encode the pathname to handle special characters properly

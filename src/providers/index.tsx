@@ -11,7 +11,8 @@ interface Props { children: React.ReactNode }
 const queryClient = new QueryClient()
 
 const AppStateProvider: React.FC<Props> = ({ children }) => {
-  const [user, setUser] = useState<IUser | null>(getCookieItem('session-user'))
+  const sessionUser: IUser | null = getCookieItem('session-user');
+  const [user, setUser] = useState<IUser | null>(sessionUser);
 
   const toastOptions = {
     style: {

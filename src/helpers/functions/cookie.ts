@@ -13,5 +13,6 @@ export function getCookieItem(key: string) {
   if (typeof value === 'string') {
     return decryptData(value);
   }
+
   return null;
 }

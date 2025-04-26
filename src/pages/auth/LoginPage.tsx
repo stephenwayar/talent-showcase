@@ -44,30 +44,21 @@ export default function LoginPage() {
       });
     },
     onSuccess: (data: IUser) => {
-      // Store user data in global state and browser cookie
       setUser(data);
       setCookieItem('session-user', data);
       form.reset();
 
-      // Handle redirect logic from query params
       const params = new URLSearchParams(window.location.search);
 
       if (params.has("redirect")) {
         const redirectUrl = params.get("redirect");
-
         if (redirectUrl) {
-          setTimeout(() => {
-            navigate(redirectUrl)
-          }, 1500);
+          navigate(redirectUrl);
         } else {
-          setTimeout(() => {
-            navigate('/account');
-          }, 1500);
+          navigate('/account');
         }
       } else {
-        setTimeout(() => {
-          navigate('/account');
-        }, 1500);
+        navigate('/account');
       }
     }
   });
