@@ -2,7 +2,7 @@ import { supabase } from "@/config/supabase";
 import { uploadImage } from "@/helpers/functions/uploadImage";
 import { CreatePostPayload } from "../types/posts.types";
 
-export const getMyPosts = async (userId: string) => {
+export const getPostsByUserId = async (userId: string) => {
   const { data, error } = await supabase
     .from('posts')
     .select('*')
@@ -16,7 +16,7 @@ export const getMyPosts = async (userId: string) => {
   return data || [];
 };
 
-export const getPosts = async () => {
+export const getAllPosts = async () => {
   const { data, error } = await supabase
     .from('posts')
     .select('*')

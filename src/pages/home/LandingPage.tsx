@@ -7,9 +7,9 @@ import EmptyState from "@/components/common/EmptyState";
 import LoadingState from "@/components/common/LoadingState";
 import RetryButton from "@/components/common/RetryButton";
 import { useAppState } from "@/hooks/useAppState";
-import { getPosts } from "@/services/api/posts";
+import { getAllPosts } from "@/services/api/posts";
 import { IPost } from "@/services/types/posts.types";
-import heroImage from "@/assets/svgs/hero-image.svg"; 
+import heroImage from "@/assets/svgs/hero-image.svg";
 
 export default function LandingPage() {
   const { user } = useAppState();
@@ -20,7 +20,7 @@ export default function LandingPage() {
 
   const { isPending, isError, data, refetch } = useQuery({
     queryKey: ['posts'],
-    queryFn: () => getPosts(),
+    queryFn: () => getAllPosts(),
   });
 
   return (

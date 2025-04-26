@@ -1,13 +1,9 @@
-import EmptyState from "@/components/common/EmptyState";
-import LoadingState from "@/components/common/LoadingState";
-import RetryButton from "@/components/common/RetryButton";
+import MyPosts from "@/components/posts/MyPosts";
 import NewPostForm from "@/components/posts/NewPostForm";
-import PostCard from "@/components/posts/PostCard";
 import { useAppState } from "@/hooks/useAppState";
-import { createPost, getMyPosts } from "@/services/api/posts";
-import { IPost } from "@/services/types/posts.types";
+import { createPost } from "@/services/api/posts";
 import { useForm } from "@mantine/form";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useLayoutEffect } from "react";
 import toast from "react-hot-toast";
 
@@ -89,7 +85,7 @@ export default function PostsPage() {
     },
     onSuccess: () => {
       // invalidate to fetch new data
-      queryClient.invalidateQueries({ queryKey: ['my-posts'] }) 
+      queryClient.invalidateQueries({ queryKey: ['posts', user!.id] })
 
       form.reset()
       toast.success('Post created')
@@ -104,49 +100,6 @@ export default function PostsPage() {
       />
 
       <MyPosts />
-    </div>
-  )
-}
-
-const MyPosts = () => {
-  const { user } = useAppState()
-
-  const { isPending, isError, data, refetch } = useQuery({
-    queryKey: ['my-posts'],
-    queryFn: () => getMyPosts(user!.id),
-  })
-
-  return (
-    <div className='space-y-6'>
-      <p className='font-semibold text-lg text-[#090A04]'>
-        My Posts
-      </p>
-
-      {isPending && (
-        <LoadingState />
-      )}
-
-      {isError && (
-        <RetryButton
-          failedTo="fetch posts"
-          retryFn={() => refetch()}
-        />
-      )}
-
-      {data && (
-        data.length > 0 ? (
-          <div className="sm:grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 space-y-5 sm:space-y-0 sm:gap-5">
-            {data.map((post: IPost, index: number) => (
-              <PostCard
-                key={index}
-                data={post}
-              />
-            ))}
-          </div>
-        ) : (
-          <EmptyState message="You do not have any posts added" />
-        )
-      )}
     </div>
   )
 }

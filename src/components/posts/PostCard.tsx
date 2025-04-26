@@ -5,9 +5,10 @@ import { IPost } from "@/services/types/posts.types";
 
 interface Props {
   data: IPost;
+  showPosterLink?: boolean
 }
 
-export default function PostCard({ data }: Props) {
+export default function PostCard({ data, showPosterLink = true }: Props) {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
 
@@ -57,12 +58,14 @@ export default function PostCard({ data }: Props) {
           </span>
         </div>
 
-        <Link
-          to={`/users/${data.user_id}`}
-          className="hover:underline font-semibold text-[#1D1D1B] inline-block mt-2"
-        >
-          View author
-        </Link>
+        {showPosterLink && (
+          <Link
+            to={`/users/${data.user_id}`}
+            className="hover:underline font-semibold text-[#1D1D1B] inline-block mt-2"
+          >
+            View poster
+          </Link>
+        )}
       </div>
     </div>
   );
